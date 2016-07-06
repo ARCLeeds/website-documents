@@ -120,7 +120,7 @@ for the library, `libsquare.c` and `libsquare.h`, as shown below.
 ​LIBSQUARE.C:  
 
 ```
-int square(int x) {return x\*x;}
+int square(int x) {return x*x;}
 ```
 
 LIBSQUARE.H:  
@@ -182,13 +182,13 @@ returned value.
 ​
 DEMO.C:
 ```
-\#include "libsquare.h"  
-\#include <stdio.h>  
+#include "libsquare.h"  
+#include <stdio.h>  
 
 int main(void) {  
     int num;  
     num = square(5);  
-    printf("5 squared %d.\n", num);  
+    printf("5 squared %d.n", num);  
     return 0;  
 }  
 ```
@@ -196,7 +196,7 @@ int main(void) {
 shared libraries as opposed to static ones. This can be done with the
 following relatively straightforward compiler command.
 ```
-$ gcc -L\$PWD -o demo\_dynamic demo.c -lsquare
+$ gcc -L$PWD -o demo_dynamic demo.c -lsquare
 ```
 In this example, `-lsquare` is searching for a library named `lib1.so`
 and the `-L\$PWD` tells the linker to search in the current working for
@@ -209,13 +209,13 @@ To run the new executable, we must update the library path with the
 following command in order to tell executable where to look for the
 library files.
 ```
-$ LD\_LIBRARY\_PATH=\$LD\_LIBRARY\_PATH:\$PWD
+$ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD
 ```
 This command simply appends the current working directory to the library
 path. We can now run the executable and should receive the expected
 output.
 ```
-$ ./demo\_dynamic  
+$ ./demo_dynamic  
 5 squared 25.
 ```
 We can show the effect of using a dynamic shared library by renaming the
@@ -224,7 +224,7 @@ the executable we will get an error message stating that there was a
 problem locating the library.
 ```
 $ mv libsquare.so libsquarebak.so  
-$ ./demo\_dynamic  
+$ ./demo_dynamic  
  ./demo: error while loading shared libraries: libsquare.so: cannot
  open shared object file: No such file or directory
 ```
@@ -232,20 +232,20 @@ We can resolve this by simply renaming the library back to its original
 title.
 ```
 $ mv libsquarebak.so libsquare.so  
-$ ./demo\_dynamic
+$ ./demo_dynamic
 ```
 Now we can try compiling our code using the static library. This means
 that the compiled code from the library will be included within the
 executable. This is done using the following command:
 ```​
-$ gcc -L\$PWD -o demo\_static demo.c -lsquare -static
+$ gcc -L$PWD -o demo_static demo.c -lsquare -static
 ```
 Notice how the command is almost exactly the same as the command for
 compiling our code with the shared library, with the only difference
 being the `-static` switch that tells the compiler to link to static
 libraries instead of shared where possible.
 ```
-$ ./demo\_static  
+$ ./demo_static  
 5 squared 25.
 ```
 Running the executable gives the expected result. However, when we
@@ -260,7 +260,7 @@ $ ./demo\_static
 This shows that we have successfully created an executable that links to
 a static library.
 ```
-$ ./demo\_dynamic  
+$ ./demo_dynamic  
 ./demo: error while loading shared libraries: libsquare.so: cannot
 open shared object file: No such file or directory
 ```
@@ -283,23 +283,23 @@ Example C Program of **writing** a vector to a file
 ​
 VECTOR\_WRITE.C:
 ```
-#include &lt;stdio.h&gt;  
-#include &lt;gsl/gsl\_vector.h&gt;  
+#include stdio.h;  
+#include gsl/gsl_vector.h;  
 
 int main (void) {
 
     int i;  
-    gsl\_vector \* v = gsl\_vector\_alloc (100);
+    gsl_vector * v = gsl_vector_alloc (100);
 
-    for (i = 0; i &lt; 100; i++) {  
-            gsl\_vector\_set (v, i, 1.23 + i);  
+    for (i = 0; i < 100; i++) {  
+            gsl_vector_set (v, i, 1.23 + i);  
         }
 
-    FILE \* f = fopen ("test.dat", "w");  
-    gsl\_vector\_fprintf (f, v, "%.5g");  
+    FILE * f = fopen ("test.dat", "w");  
+    gsl_vector_fprintf (f, v, "%.5g");  
     fclose (f);  
 
-    gsl\_vector\_free (v);  
+    gsl_vector_free (v);  
     return 0;  
 }
 ```
@@ -309,67 +309,67 @@ Example C Program of **reading** a vector from a file
 VECTOR\_READ.C:
 ```
 #include &lt;stdio.h&gt;  
-#include &lt;gsl/gsl\_vector.h&gt;  
+#include &lt;gsl/gsl_vector.h&gt;  
 
 int main (void) {
 
     int i;  
-    gsl\_vector \* v = gsl\_vector\_alloc (10);
+    gsl_vector * v = gsl_vector_alloc (10);
 
-    FILE \* f = fopen ("test.dat", "r");  
-    gsl\_vector\_fscanf (f, v);  
+    FILE * f = fopen ("test.dat", "r");  
+    gsl_vector_fscanf (f, v);  
     fclose (f);
 
     for (i = 0; i &lt; 10; i++) {  
-        printf ("%g\\n", gsl\_vector\_get(v, i));  
+        printf ("%g\n", gsl_vector_get(v, i));  
     }
 
-    gsl\_vector\_free (v);  
+    gsl_vector_free (v);  
     return 0;  
 }
 ```
 In the example code, the GSL library is specified by naming the exact
-header file using \#include &lt;gsl/headerfile.h&gt;. This can also be
-given by using the more general reference \#include &lt;gsl&gt; which is
+header file using `#include gsl/headerfile.h`. This can also be
+given by using the more general reference `#include gsl` which is
 less efficient – more noticeably for applications with many libraries.
 
 To load the GSL module the command is needed:
-
->\$ module load gsl
-
-By the default the compiler is Intel but this can be changed to the gnu
+```
+$ module load gsl
+```
+By the default the compiler is Intel but this can be changed to the GNU
 compiler with a simple command:
-
->\$ module switch intel gnu
-
+```
+$ module switch intel gnu
+```
 This is how to compile the example codes with the gnu compiler:
-
->\$ gcc -o vector\_read\_dynamic vector\_read.c -lgsl -lgslcblas  
->\$ gcc -o vector\_write\_dynamic vector\_write.c -lgsl –lgslcblas
-
+```
+$ gcc -o vector_read_dynamic vector_read.c -lgsl -lgslcblas  
+$ gcc -o vector_write_dynamic vector_write.c -lgsl –lgslcblas
+```
 This method uses dynamic linking so the GSL module needs to be loaded
 whenever the executable is run. The flags at the end of the commands,
--lgsl –lgslcblas tells the linker the names of the libraries that needs
-to be linked and by default the ‘.so’ shared libraries are linked.
+`-lgsl` `–lgslcblas` tells the linker the names of the libraries that needs
+to be linked and by default the `.so` shared libraries are linked.
 
 To statically link to the libraries, the codes need to be compiled with
 the gnu compiler like so:
-
->\$ gcc -o vector\_read\_static vector.c -lgsl -lgslcblas -static  
->\$ gcc -o vecto\_write\_static vectoropen.c -lgsl -lgslcblas –static
-
+```
+$ gcc -o vector_read_static vector.c -lgsl -lgslcblas -static  
+$ gcc -o vecto_write_static vectoropen.c -lgsl -lgslcblas –static
+```
 This is very similar to the dynamic link compilation, but with the added
-–static flag to tell the linker to use the static ‘.a’ libraries and
+`–static` flag to tell the linker to use the static `.a` libraries and
 implement them in the binary executable. This means the GSL module does
 not need to be loaded in order to run the programs.
 
 Intel compilers can also be used to compile the code. This is done
 almost exactly the same way as it is with the gnu compiler but instead
-the ‘icc’ command is used instead of ‘gcc’ so it will be something like
+the `icc` command is used instead of `gcc` so it will be something like
 this:
-
->\$ icc –o vector vector.c –lgsl –lgslcblas
-
+```
+$ icc –o vector vector.c –lgsl –lgslcblas
+```
 ##**Example 3: FFTW C**
 
 **Example is lost – may be able to use
@@ -384,38 +384,38 @@ This is a basic a C example that performs a fast Fourier transform on a
 1-dimensional array of floating point numbers. The FFTW module contains
 only static libraries so we can only create an executable with these. To
 load the FFTW module type:
-
->\$ module load fftw
-
+```
+$ module load fftw
+```
 We will be compiling the example code with the GNU C compiler, so we
 must switch the Intel compiler out for this using the following command:
-
->\$ module switch intel gnu
-
+```
+$ module switch intel gnu
+```
 Now that we have the environment set up **we can begin running this
 example**. Begin by downloading the source code from ***here.***
 
 Create a new directory save the source code in there under the name
-"example.c". From within this directory we can compile the code using
+`example.c`. From within this directory we can compile the code using
 the following command:
-
->\$ gcc example.c -o example -lfftw3 -lm
-
-The command "gcc" is the GNU C Compiler and will compile the file
-"example.c". The "-o example" tag tells the compiler to name the output
-executable "example". The "-lfftw3" tag will search your
-LD\_PATH\_LIBRARY for either "libfftw3.a" or "libfftw3.so" libraries and
+```
+$ gcc example.c -o example -lfftw3 -lm
+```
+The command `gcc` is the GNU C Compiler and will compile the file
+`example.c`. The `-o example` tag tells the compiler to name the output
+executable `example`. The `-lfftw3` tag will search your
+`LD_PATH_LIBRARY` for either `libfftw3.a` or `libfftw3.so` libraries and
 then link them to your code. In this case FFTW contains only static
 libraries so when compiling your code the outputted executable will
-contain a static FFTW library. Similarly the tag "-lm" will search for
-either "libm.a" or "libm.so" which are the mathematics libraries.
+contain a static FFTW library. Similarly the tag `-lm` will search for
+either `libm.a` or `libm.so` which are the mathematics libraries.
 
 You now have an executable program ready to perform fast fourier
 transformations on data. The only part we are missing is the data.
 Create a new text file and open it using the following commands:
-
->\$ touch data.txt && gedit data.txt
-
+```
+$ touch data.txt && gedit data.txt
+```
 You can enter your own floating point numbers separated each by a new
 line in here now or simply use my example data below.
 
@@ -452,12 +452,12 @@ line in here now or simply use my example data below.
 > 1.435500
 
 We can now run the executable using the following command:
-
->\$ ./example -n 16 data.txt
-
-The command "./example" will run the executable you created. The tag "-n
-16" is program specific and in this case indicates that there are 16
-floating point numbers. The "data.txt" tag is also program specific and
+```
+$ ./example -n 16 data.txt
+```
+The command `./example` will run the executable you created. The tag `-n
+16` is program specific and in this case indicates that there are 16
+floating point numbers. The `data.txt` tag is also program specific and
 tells the program that the text file you created is where the data you
 want to perform the calculations is.
 
@@ -467,10 +467,10 @@ file. Because your executable was compiled using static libraries, the
 libraries themselves are not needed to run the executable. To test this
 we can unload the FFTW library and attempt to run the executable without
 it.
-
->\$ module unload fftw  
->\$ ./example -n 16 data.txt
-
+```
+$ module unload fftw  
+$ ./example -n 16 data.txt
+```
 You should find that the executable runs without any errors without
 needing the FFTW module to be loaded into the environment due to the use
 of static libraries.
@@ -481,40 +481,40 @@ This is a basic a C example that performs a fast fourier transform on a
 1-dimensional array of floating point numbers. The FFTW module contains
 only static libraries so we can only create and executable using these.
 To load the FFTW module type:
-
->\$ module load fftw
-
+```
+$ module load fftw
+```
 We will be compiling the example code with the Intel C compiler, so we
 must ensure that this is the currently loaded compiler. If it isn't,
 then we can switch the GNU compiler out for this using the following
 command:
-
->\$ module switch gnu intel
-
+```
+$ module switch gnu intel
+```
 Now that we have the environment set up we can begin running this
 example. Begin by downloading the source code from ***here.***
 
 Create a new directory save the source code in there under the name
-"example.c". From within this directory we can compile the code using
+`example.c`. From within this directory we can compile the code using
 the following command:
-
->\$ icc example.c -o example -lfftw3 -lm
-
-The command "icc" is the Intel C Compiler and will compile the file
-"example.c". The "-o example" tag tells the compiler to name the output
-executable "example". The "-lfftw3" tag will search your
-LD\_PATH\_LIBRARY for either "libfftw3.a" or "libfftw3.so" libraries and
+```
+$ icc example.c -o example -lfftw3 -lm
+```
+The command `icc` is the Intel C Compiler and will compile the file
+`example.c`. The `-o example` tag tells the compiler to name the output
+executable `example`. The `-lfftw3` tag will search your
+`LD_PATH_LIBRARY` for either `libfftw3.a` or `libfftw3.so` libraries and
 then link them to your code. In this case FFTW contains only static
 libraries so when compiling your code the outputted executable will
-contain a static FFTW library. Similarly the tag "-lm" will search for
-either "libm.a" or "libm.so" which are the mathematics libraries.
+contain a static FFTW library. Similarly the tag `-lm` will search for
+either `libm.a` or `libm.so` which are the mathematics libraries.
 
 You now have an executable program ready to perform fast fourier
 transformations on data. The only part we are missing is the data.
 Create a new text file and open it using the following commands:
-
->\$ touch data.txt && gedit data.txt
-
+```
+$ touch data.txt && gedit data.txt
+```
 You can enter your own floating point numbers separated each by a new
 line in here now or simply use my example data below.
 
@@ -551,12 +551,12 @@ line in here now or simply use my example data below.
 > 1.435500
 
 We can now run the executable using the following command:
-
->\$ ./example -n 16 data.txt
-
-The command "./example" will run the executable you created. The tag "-n
-16" is program specific and in this case indicates that there are 16
-floating point numbers. The "data.txt" tag is also program specific and
+```
+$ ./example -n 16 data.txt
+```
+The command `./example` will run the executable you created. The tag `-n
+16` is program specific and in this case indicates that there are 16
+floating point numbers. The `data.txt` tag is also program specific and
 tells the program that the text file you created is where the data you
 want to perform the calculations is.
 
@@ -566,15 +566,15 @@ file. Because your executable was compiled using static libraries, the
 libraries themselves are not needed to run the executable. To test this
 we can unload the FFTW library and attempt to run the executable without
 it.
-
->\$ module unload fftw  
->\$ ./example -n 16 data.txt
-
+```
+$ module unload fftw  
+$ ./example -n 16 data.txt
+```
 You should find that the executable runs without any errors without
 needing the FFTW module to be loaded into the environment due to the use
 of static libraries
 
-In doing this example you have learnt how to load two different modules
+In doing this example you have learned how to load two different modules
 and and include their libraries into your code's executable statically
 and then test that this is the case.
 
@@ -583,34 +583,34 @@ and then test that this is the case.
 This is a basic Fortran example for loading and using the FFTW module.
 This is done exactly the same way as the C example where the module is
 loaded by using
-
-> \$ module load fftw
-
+```
+$ module load fftw
+```
 The example code shows that the FFTW is used with the following line
-
-> include “fftw3.f”
-
+```
+include “fftw3.f”
+```
 Similarly to the C code example we will be compiling with the GNU
 compiler so the default Intel module will need to be switch to GNU.
-
-> \$ module switch intel gnu
-
+```
+$ module switch intel gnu
+```
 The command to compile the code is as follows:
-
-> \$ gfortran -I/\$FFTW\_HOME/include examplef.f -o example -lfftw3 -lm
-
-The -I option is needed here to direct the compiler to the relevant
-include directory for fftw3. The library flags at the end -lfftw3 and
--lm are exactly the same as the ones used for the C example to link the
+```
+$ gfortran -I/$FFTW_HOME/include examplef.f -o example -lfftw3 -lm
+```
+The `-I` option is needed here to direct the compiler to the relevant
+include directory for `fftw3`. The library flags at the end `-lfftw3` and
+`-lm` are exactly the same as the ones used for the C example to link the
 FFTW and math libraries needed.
 
 To run the executable produced during the compilation and linking just
 used the following command
-
-> \$ ./examplef
-
+```
+$ ./examplef
+```
 This should output some results to the terminal. The FFTW lib folder
-only contains static ‘.a’ libraries so the functionalities needed will
+only contains static `.a` libraries so the functionalities needed will
 be implemented with the binary executable and will not need to
 dynamically link to the library. This means that the code can then run
 successfully without loading the FFTW and math libraries.
@@ -618,11 +618,11 @@ successfully without loading the FFTW and math libraries.
 ##**FFTW Fortran Intel Example**
 
 To use the FFTW library with Intel compilers, the suffix of the Fortran
-code needs to .f90 or it won’t compile. The following command should be
+code needs to `.f90` or it won’t compile. The following command should be
 used:
-
-> \$ ifort exampleintelf.f90 -o exampleintelf -lfftw3 -lm
-
-As you can see the -I option is not needed here as the linker knows
+```
+$ ifort exampleintelf.f90 -o exampleintelf -lfftw3 -lm
+```
+As you can see the `-I` option is not needed here as the linker knows
 where to look for the relevant ‘fftw3.f’ file in the FFTW include
 directory.
