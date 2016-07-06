@@ -92,9 +92,13 @@ the execution has completed you will then have a `.txt` file and a `.html`
 file that will both contain the output of you performance report.
 
 ##**What Reports Mean?**
-Logo:![image1](https://github.com/ARCLeeds/website-documents/tree/master/images/image1.jpg"Title")
+Logo:![image1](https://github.com/ARCLeeds/website-documents/tree/master/images/image1.jpg "Title")
 
-![image1](/images/image1.jpg)
+![image1](https://github.com/ARCLeeds/website-documents/tree/master/images/image1.jpg "title")
+
+![image1][logo]
+
+[logo]: https://github.com/ARCLeeds/website-documents/tree/master/images/image1.jpg  "Logo Title Text 1"
 
 In general, high CPU times and low MPI and I/O times are good. This is
 because you want to minimize the time spent communicating and
@@ -133,6 +137,12 @@ other users on the login node. At the main cluster, the resources are
 managed and controlled by the scheduler and the user that has requested
 the resource will have exclusive access to the resource for the duration
 of the job.
+
+
+![image2][media]
+
+[media]: https://github.com/ARCLeeds/website-documents/tree/master/images/image2.png  "Logo Title Text 2"
+
 
 ![](media/image2.png){width="2.8229166666666665in"
 height="1.0520833333333333in"}**Login node**
