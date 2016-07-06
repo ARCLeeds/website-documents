@@ -1,7 +1,7 @@
 #**Libraries**
 
 
-##**Why?**
+##**Why use libraries**
 ​
 Libraries save time and effort when you develop software.
 ​
