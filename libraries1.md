@@ -15,12 +15,12 @@ processes.
 ​
 ##**Dynamic vs Static?**
 ​
-Static Libraries (`.lib/.a`): When using static libraries your final
+Static Libraries (`.lib`/`.a`): When using static libraries your final
 compiled application **contains the machine code** of all functions,
 methods or classes from the libraries that are linked with your
 application.
 ​
-Dynamic Libraries (.dll/.so): When using dynamic libraries the final
+Dynamic Libraries (`.dll`/`.so`): When using dynamic libraries the final
 compiled code **contains a pointer** to the memory address of where the
 functions, methods and classes in the libraries that are included in
 your application. These can be included by dynamic linking which occurs
@@ -60,26 +60,26 @@ different file extensions, so it useful to know what each of the file
 extensions mean. This also helps if you want to google further
 information. The file extensions are:
 ​
-1.  .c means the file is source code created in the programing language
+1.  `.c` means the file is source code created in the programing language
     c – this can be either a main program or the source code for a
     library.
 ​
-2.  .h means the file is a header file and this gives the name and the
+2.  `.h` means the file is a header file and this gives the name and the
     arguments for all the code sections in the library with the same
     file name.
 ​
-3.  .so means it is a shared objective library file which can be read at
+3.  `.so` means it is a shared objective library file which can be read at
     runtime.
 ​
-4.  .a means the file is an archive library and is linked at
+4.  `.a` means the file is an archive library and is linked at
     compile time.
 ​
-5.  .o means the file is an object file which is an intermediary file
+5.  `.o` means the file is an object file which is an intermediary file
     created during the compile process. It is not directly executable but
     has all the segments of information needed to create an executable from all the sources - this includes header and
     library files.
 ​
-6.  .exe or no extension means the file is executable.
+6.  `.exe` or no extension means the file is executable.
 ​
 Shared libraries are used by default when they are available. By
 specifying the '-static' command you can force the use of static
@@ -119,50 +119,56 @@ for the library, `libsquare.c` and `libsquare.h`, as shown below.
 
 ​LIBSQUARE.C:  
 
-    int square(int x) {return x\*x;}
-​
-LIBSQUARE.H:
+```
+int square(int x) {return x\*x;}
+```
 
-​   int square(int x);
-​
+LIBSQUARE.H:  
+
+```
+​int square(int x);
+```
+
 
 We can now begin to create our libraries. We will **start by creating
 the static library** by inputting the following commands:
-​
-    $ gcc -c libsquare.c -o libsquare.o
-​
+
+```
+gcc -c libsquare.c -o libsquare.o
+```
 
 Here we use the GNU C compiler to compile our library's source code into
-object code. The '-c' switch tells the compiler to compile the code. The
-"libsquare.c" tells the compiler which code to compile. The "-o
-libsquare.o" tells the compiler what to name the outputted compiled
+object code. The `-c` switch tells the compiler to compile the code. The
+`libsquare.c` tells the compiler which code to compile. The `-o libsquare.o` tells the compiler what to name the outputted compiled
 code. We can now create the static library with the following command.
-​
->\$ ar rcs libsquare.a libsquare.o
-​
 
-The "ar" command is used to create static libraries (archives). The rcs
+```
+$ ar rcs libsquare.a libsquare.o
+```
+
+The `ar` command is used to create static libraries (archives). The `rcs`
 operands tell the archiver to create the archive and add the
-"libsquare.o" object file to it. The final static library produced will
-be names "libsquare.a".
-​
-We will **now create the dynamic or shared library** and will start by
+`libsquare.o` object file to it. The final static library produced will
+be names `libsquare.a`.
+
+​We will **now create the dynamic or shared library** and will start by
 entering the following command:
-​
->\$ gcc -c libsquare.c -fpic -o libsquare.o
-​
+
+```
+$ gcc -c libsquare.c -fpic -o libsquare.o
+```
 
 The main difference in the creation of the object file for the shared
-library is the "-fpic" switch. This switch generates position
+library is the `-fpic` switch. This switch generates position
 independent code which is needed for the creation of shared libraries.
-“–fpic” or “–fPIC” can be used when generating the objective file. The
-” –fPIC” choice always works, but may produce larger code than “–fpic”
+`–fpic` or `–fPIC` can be used when generating the objective file. The
+`–fPIC` choice always works, but may produce larger code than `–fpic`
 while using the “-fpic” option usually generates smaller and faster code
 that will have platform-dependent limitations. Now we have the object
 file we can create a shared library with the following command:
-​
+```
 >\$ gcc libsquare.o -o libsquare.so -shared
-​
+```
 
 This command simply compiles the object code created in the previous
 step as a shared library file. The "-shared" switch is use to indicate
