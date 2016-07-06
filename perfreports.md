@@ -70,7 +70,7 @@ performance reports:
 perf-report mpirun mdrun_mpi -v -deffnm run
 ```
 This job submission script will run Performance Reports on this Gromacs
-example on 4 nodes with 8 processes per node for a total of 24
+example on 4 nodes, with 8 processes per node, for a total of 24
 processes. For Gromacs, it is necessary to specify the threads per
 process `tpp` option to equal 1 as the Gromacs application was built
 to only support 1 OpenMP thread for each process.
@@ -97,8 +97,8 @@ file that will both contain the output of you performance report.
 
 In general, high CPU times and low MPI and I/O times are good. This is
 because you want to minimize the time spent communicating and
-reading/writing as this is all time where you could potentially be
-performing more calculations. This is not always the case however and
+reading/writing, as this is all time where you could potentially be
+performing more calculations. This is not always the case, however, and
 will depend entirely on the type of problem that your program solves.
 Often the optimal solution may have very high MPI times and this may be
 unavoidable.
@@ -113,7 +113,7 @@ investigation may be required.
 For example, if you know that the only writing your program should do is
 produce a single small file and the I/O write percentage is much higher
 than expected, then there could be a problem here. This could be caused
-by a range of different problems though one likely cause in this case
+by a range of different problems, though one likely cause in this case
 could be the file storage system you are using. Depending on the results
 of the performance report you will be able to see what might be causing
 your problem in your own case.
@@ -124,9 +124,9 @@ factors to take in to account for an efficient job submission.
 
 ##**Login node vs Compute Nodes**
 
-As you can see below there is a difference between using the login node
+As you can see below, there is a difference between using the login node
 as opposed to using the compute nodes. This Gromacs example ran for 31
-seconds on the login node whereas it ran for 29 seconds on the compute
+seconds on the login node, whereas it ran for 29 seconds on the compute
 node. This is because at the login node the resources are shared with
 other users on the login node. At the main cluster, the resources are
 managed and controlled by the scheduler and the user that has requested
