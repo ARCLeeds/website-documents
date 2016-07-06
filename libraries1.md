@@ -1,0 +1,305 @@
+#**Libraries**
+
+​
+##**Why?**
+​
+Libraries save time and effort when you develop software.
+​
+##**What?**
+​
+Libraries are collections of reusable sections of code. They contain
+methods, functions and classes that tackle common tasks in efficient and
+effective ways. Libraries can be used for a range of tasks, from common
+mathematical computations all the  way to modelling specific scientific
+processes.
+​
+##**Dynamic vs Static?**
+​
+Static Libraries (.lib/.a): When using static libraries your final
+compiled application **contains the machine code** of all functions,
+methods or classes from the libraries that are linked with your
+application.
+​
+Dynamic Libraries (.dll/.so): When using dynamic libraries the final
+compiled code **contains a pointer** to the memory address of where the
+functions, methods and classes in the libraries that are included in
+your application. These can be included by dynamic linking which occurs
+at compile time or they can be included by dynamic load/unload and so
+linked only at the time the software is executed.
+​
+Static and dynamic libraries both have advantages and disadvantages:
+​
+-   Static libraries are good when you wish to release software as the
+    libraries are defined by and included in the distribution by you
+    the developer. The user does not have to install any libraries for
+    your distribution to work.
+​
+-   Static libraries are good because you do not have to worry about
+    updates to libraries causing incompatibilities in your code. This is
+    because the version of the library that you need is already included
+    in your executable and any updates will not affect this.
+​
+-   Dynamically linked libraries are good because your executables are
+    much smaller. This is because instead of including the machine code
+    for all the code from all of the libraries used in your code in the
+    executable, as you would in a static library, dynamic libraries only
+    contain a pointer to the memory location of the compiled version of
+    the library, resulting in a much smaller executable.
+​
+-   Dynamically linked libraries are good because the memory address of
+    the pointer is the same after an update as it was before so there is
+    no need to recompile your code after each update. However with a
+    static library you have to recompile your source code to include
+    these updates.
+​
+##**How to Create Dynamic/Static Linking?**
+​
+In this example, you
+will be using and creating many files with the same file name but with
+different file extensions, so it useful to know what each of the file
+extensions mean. This also helps if you want to google further
+information. The file extensions are:
+​
+1.  .c means the file is source code created in the programing language
+    c – this can be either a main program or the source code for a
+    library.
+​
+2.  .h means the file is a header file and this gives the name and the
+    arguments for all the code sections in the library with the same
+    file name.
+​
+3.  .so means it is a shared objective library file which can be read at
+    runtime.
+​
+4.  .a means the file is an archive library and is linked at
+    compile time.
+​
+5.  .o means the file is an object file which is an intermediary file
+    created during the compile process. It is not directly executable but
+    has all the segments of information needed to create an executable from all the sources - this includes header and
+    library files.
+​
+6.  .exe or no extension means the file is executable.
+​
+Shared libraries are used by default when they are available. By
+specifying the '-static' command you can force the use of static
+libraries.
+​
+STATIC LINKING:
+>\$ gcc -o mycode mycode.c -l1 -l2 -static
+​
+In this example '-l1' is searching for a library named 'lib1.a' and
+'-l2' is searching for a library named 'lib2.a'. The .a extension
+indicates that a file is a static library or archive and is a binary
+file that contains objective code.
+​
+SHARED LINKING:
+>\$ gcc -o mycode mycode.c -l1 -l2
+​
+In this example '-l1' is searching for a library named 'lib1.so' and
+'-l2' is searching for a library named 'lib2.so'. The .so extension
+indicates that a file is a shared library and is a binary file that
+contains objective code.
+​
+##**Example 1: Compiling Libraries**
+​
+In this example we will create a very basic library and discuss the
+different ways you can load them both dynamically and statically in your
+code. Though you will rarely have to compile the libraries themselves,
+it should help to better understand what is happening when you load
+libraries into your own code.
+​
+Firstly we will create our library. This is done by creating two files
+for the library, "libsquare.c" and "libsquare.h", as shown below.
+​
+LIBSQUARE.C:
+​
+>int square(int x) {  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return x\*x;  
+>}  
+​
+LIBSQUARE.H:
+​
+>int square(int x);
+​
+We can now begin to create our libraries. We will **start by creating
+the static library** by inputting the following commands:
+​
+>\$ gcc -c libsquare.c -o libsquare.o
+​
+Here we use the GNU C compiler to compile our library's source code into
+object code. The '-c' switch tells the compiler to compile the code. The
+"libsquare.c" tells the compiler which code to compile. The "-o
+libsquare.o" tells the compiler what to name the outputted compiled
+code. We can now create the static library with the following command.
+​
+>\$ ar rcs libsquare.a libsquare.o
+​
+The "ar" command is used to create static libraries (archives). The rcs
+operands tell the archiver to create the archive and add the
+"libsquare.o" object file to it. The final static library produced will
+be names "libsquare.a".
+​
+We will **now create the dynamic or shared library** and will start by
+entering the following command:
+​
+>\$ gcc -c libsquare.c -fpic -o libsquare.o
+​
+The main difference in the creation of the object file for the shared
+library is the "-fpic" switch. This switch generates position
+independent code which is needed for the creation of shared libraries.
+“–fpic” or “–fPIC” can be used when generating the objective file. The
+” –fPIC” choice always works, but may produce larger code than “–fpic”
+while using the “-fpic” option usually generates smaller and faster code
+that will have platform-dependent limitations. Now we have the object
+file we can create a shared library with the following command:
+​
+>\$ gcc libsquare.o -o libsquare.so -shared
+​
+This command simply compiles the object code created in the previous
+step as a shared library file. The "-shared" switch is use to indicate
+that you are generating a shared library.
+​
+##**Compiling Statically & Dynamically With the GNU Compiler**
+​
+We must now create the source code for our program. For the purposes of
+this example we name the file "demo.c". Our code will simply call the
+square function in our square library on the number 5 and print the
+returned value.
+​
+DEMO.C:
+​
+>\#include "libsquare.h"  
+>\#include <stdio.h>  
+>  
+>int main(void) {  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int num;  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;num = square(5);  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("5 squared %d.\n", num);  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 0;  
+>}  
+​
+​
+When compiling your program, by default the linker will search for
+shared libraries as opposed to static ones. This can be done with the
+following relatively straightforward compiler command.
+​
+>\$ gcc -L\$PWD -o demo\_dynamic demo.c -lsquare
+​
+In this example '-lsquare' is searching for a library named 'lib1.so'
+and the "-L\$PWD" tells the linker to search in the current working for
+the library. With libraries that are preinstalled on the HPC the
+"L\$PWD" switch will not be needed as the information on where to find
+the library will be held in the ldconfig file. For our example, however,
+we must tell the linker where to find the library.
+​
+To run the new executable, we must update the library path with the
+following command in order to tell executable where to look for the
+library files.
+​
+>\$ LD\_LIBRARY\_PATH=\$LD\_LIBRARY\_PATH:\$PWD
+​
+This command simply appends the current working directory to the library
+path. We can now run the executable and should receive the expected
+output.
+​
+>\$ ./demo\_dynamic  
+>5 squared 25.
+​
+We can show the effect of using a dynamic shared library by renaming the
+library file so that the linker cannot find it. When we attempt to run
+the executable we will get an error message stating that there was a
+problem locating the library.
+​
+>\$ mv libsquare.so libsquarebak.so  
+>\$ ./demo\_dynamic  
+> ./demo: error while loading shared libraries: libsquare.so: cannot
+> open shared object file: No such file or directory
+​
+We can resolve this by simply renaming the library back to its original
+title.
+​
+>\$ mv libsquarebak.so libsquare.so  
+>\$ ./demo\_dynamic
+​
+Now we can try compiling our code using the static library. This means
+that the compiled code from the library will be included within the
+executable. This is done using the following command:
+​
+> \$ gcc -L\$PWD -o demo\_static demo.c -lsquare -static
+​
+Notice how the command is almost exactly the same as the command for
+compiling our code with the shared library, with the only difference
+being the "-static" switch that tells the compiler to link to static
+libraries instead of shared where possible.
+​
+>\$ ./demo\_static  
+>5 squared 25.
+​
+Running the executable gives the expected result. However, when we
+rename the libraries so that the executable cannot find them we find
+that the executable still runs perfectly.
+​
+> \$ mv libsquare.a libsquarebak.a  
+> \$ mv libsquare.so libsquarebak.so  
+>\$ ./demo\_static  
+>5 squared 25.
+​
+This shows that we have successfully created an executable that links to
+a static library.
+​
+>\$ ./demo\_dynamic  
+> ./demo: error while loading shared libraries: libsquare.so: cannot
+> open shared object file: No such file or directory
+​
+This shows that the dynamic version does not work while the static does.
+​
+##**Compiling Statically & Dynamically With the Intel Compiler**
+​
+The process is the same whichever compiler you use. If you wanted to do
+the same example with the intel compiler you would just replace ‘gcc’
+with ‘icc’. It is generally best to use the same compiler (or family of
+compilers) for programs and libraries that will be executed together.
+​
+##**Example 2: GSL (GNU Scientific Library) C**
+​
+This is a more complex example that demonstrates ***?………..?*** In this example
+you will be able to read and write vector data.
+​
+Example C Program of **writing** a vector to a file
+​
+VECTOR\_WRITE.C:
+​
+>\#include &lt;stdio.h&gt;  
+>\#include &lt;gsl/gsl\_vector.h&gt;  
+>
+>int main (void) {
+>
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int i;  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gsl\_vector \* v = gsl\_vector\_alloc (100);
+>
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (i = 0; i &lt; 100; i++) {  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gsl\_vector\_set (v, i, 1.23 + i);  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+>
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILE \* f = fopen ("test.dat", "w");  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gsl\_vector\_fprintf (f, v, "%.5g");  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fclose (f);  
+>
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gsl\_vector\_free (v);  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 0;  
+>}
+​
+Example C Program of **reading** a vector from a file
+​
+VECTOR\_READ.C:
+​
+>\#include &lt;stdio.h&gt;  
+>\#include &lt;gsl/gsl\_vector.h&gt;  
+>
+>int main (void) {
+>
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int i;  
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gsl\_vector \* v = gsl\_vector\_alloc (10);
+>
+>&nbsp;&nbsp;&nbsp;&nbsp;&...
