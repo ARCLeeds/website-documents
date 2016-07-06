@@ -1,6 +1,6 @@
 #**Libraries**
 
-​
+
 ##**Why?**
 ​
 Libraries save time and effort when you develop software.
@@ -15,7 +15,7 @@ processes.
 ​
 ##**Dynamic vs Static?**
 ​
-Static Libraries (.lib/.a): When using static libraries your final
+Static Libraries (`.lib/.a`): When using static libraries your final
 compiled application **contains the machine code** of all functions,
 methods or classes from the libraries that are linked with your
 application.
@@ -83,10 +83,13 @@ information. The file extensions are:
 ​
 Shared libraries are used by default when they are available. By
 specifying the '-static' command you can force the use of static
-libraries.
+libraries.  
+
 ​
 STATIC LINKING:
->\$ gcc -o mycode mycode.c -l1 -l2 -static
+```
+$ gcc -o mycode mycode.c -l1 -l2 -static
+```
 ​
 In this example '-l1' is searching for a library named 'lib1.a' and
 '-l2' is searching for a library named 'lib2.a'. The .a extension
@@ -94,7 +97,9 @@ indicates that a file is a static library or archive and is a binary
 file that contains objective code.
 ​
 SHARED LINKING:
->\$ gcc -o mycode mycode.c -l1 -l2
+```
+$ gcc -o mycode mycode.c -l1 -l2
+```
 ​
 In this example '-l1' is searching for a library named 'lib1.so' and
 '-l2' is searching for a library named 'lib2.so'. The .so extension
@@ -110,23 +115,23 @@ it should help to better understand what is happening when you load
 libraries into your own code.
 ​
 Firstly we will create our library. This is done by creating two files
-for the library, "libsquare.c" and "libsquare.h", as shown below.
-​
-LIBSQUARE.C:
-​
->int square(int x) {  
->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return x\*x;  
->}  
+for the library, `libsquare.c` and `libsquare.h`, as shown below.  
+
+​LIBSQUARE.C:  
+
+    int square(int x) {return x\*x;}
 ​
 LIBSQUARE.H:
+
+​   int square(int x);
 ​
->int square(int x);
-​
+
 We can now begin to create our libraries. We will **start by creating
 the static library** by inputting the following commands:
 ​
->\$ gcc -c libsquare.c -o libsquare.o
+    $ gcc -c libsquare.c -o libsquare.o
 ​
+
 Here we use the GNU C compiler to compile our library's source code into
 object code. The '-c' switch tells the compiler to compile the code. The
 "libsquare.c" tells the compiler which code to compile. The "-o
@@ -135,6 +140,7 @@ code. We can now create the static library with the following command.
 ​
 >\$ ar rcs libsquare.a libsquare.o
 ​
+
 The "ar" command is used to create static libraries (archives). The rcs
 operands tell the archiver to create the archive and add the
 "libsquare.o" object file to it. The final static library produced will
@@ -145,6 +151,7 @@ entering the following command:
 ​
 >\$ gcc -c libsquare.c -fpic -o libsquare.o
 ​
+
 The main difference in the creation of the object file for the shared
 library is the "-fpic" switch. This switch generates position
 independent code which is needed for the creation of shared libraries.
@@ -156,6 +163,7 @@ file we can create a shared library with the following command:
 ​
 >\$ gcc libsquare.o -o libsquare.so -shared
 ​
+
 This command simply compiles the object code created in the previous
 step as a shared library file. The "-shared" switch is use to indicate
 that you are generating a shared library.
