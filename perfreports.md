@@ -92,7 +92,7 @@ the execution has completed you will then have a `.txt` file and a `.html`
 file that will both contain the output of you performance report.
 
 ##**What Reports Mean?**
-Logo: ![Alt](/wp.png "Title"){width="3.3125in" height="5.0in"}
+Logo: ![Alt](/image1.jpg "Title"){width="3.3125in" height="5.0in"}
 
 In general, high CPU times and low MPI and I/O times are good. This is
 because you want to minimize the time spent communicating and
