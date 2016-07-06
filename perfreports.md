@@ -92,7 +92,7 @@ the execution has completed you will then have a `.txt` file and a `.html`
 file that will both contain the output of you performance report.
 
 ##**What Reports Mean?**
-Logo: ![image1](/images/image1.jpg "Title")
+Logo:![image1](https://github.com/ARCLeeds/website-documents/tree/master/images/image1.jpg"Title")
 
 ![image1](/images/image1.jpg)
 
