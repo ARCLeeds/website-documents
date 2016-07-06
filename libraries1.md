@@ -46,15 +46,15 @@ Static and dynamic libraries both have advantages and disadvantages:
     contain a pointer to the memory location of the compiled version of
     the library, resulting in a much smaller executable.
 ​
--   Dynamically linked libraries are good because the memory address of
+-   Dynamically linked libraries are good because   the memory address of
     the pointer is the same after an update as it was before so there is
     no need to recompile your code after each update. However with a
     static library you have to recompile your source code to include
     these updates.
-​
+
 ##**How to Create Dynamic/Static Linking?**
-​
-In this example, you
+
+​In this example, you
 will be using and creating many files with the same file name but with
 different file extensions, so it useful to know what each of the file
 extensions mean. This also helps if you want to google further
