@@ -92,13 +92,7 @@ the execution has completed you will then have a `.txt` file and a `.html`
 file that will both contain the output of you performance report.
 
 ##**What Reports Mean?**
-Logo:![image1](https://github.com/ARCLeeds/website-documents/tree/master/images/image1.jpg "Title")
-
-![image1](https://github.com/ARCLeeds/website-documents/tree/master/images/image1.jpg "title")
-
-![image1][logo]
-
-[logo]: [[https://github.com/ARCLeeds/website-documents/tree/master/images/image1.jpg|alt=octocat]]
+![image1](image1.jpeg)
 
 In general, high CPU times and low MPI and I/O times are good. This is
 because you want to minimize the time spent communicating and

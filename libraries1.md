@@ -3,7 +3,8 @@
 
 ##**Why use libraries**
 
-Libraries save time and effort when you develop software.
+Libraries save time and effort when you develop software and organise 
+code into distinct modules.
 ​
 ##**What?**
 
