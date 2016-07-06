@@ -93,7 +93,9 @@ file that will both contain the output of you performance report.
 
 ##**What Reports Mean?**
 
-![](media/image1.jpeg){width="3.3125in" height="5.0in"}
+![image1](media/image1.jpeg)
+
+Format: ![Alt Text](url)
 
 In general, high CPU times and low MPI and I/O times are good. This is
 because you want to minimize the time spent communicating and
