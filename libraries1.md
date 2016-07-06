@@ -2,11 +2,11 @@
 
 
 ##**Why use libraries**
-​
+
 Libraries save time and effort when you develop software.
 ​
 ##**What?**
-​
+
 Libraries are collections of reusable sections of code. They contain
 methods, functions and classes that tackle common tasks in efficient and
 effective ways. Libraries can be used for a range of tasks, from common
@@ -14,7 +14,7 @@ mathematical computations all the  way to modelling specific scientific
 processes.
 ​
 ##**Dynamic vs Static?**
-​
+
 Static Libraries (`.lib`/`.a`): When using static libraries your final
 compiled application **contains the machine code** of all functions,
 methods or classes from the libraries that are linked with your
@@ -82,7 +82,7 @@ information. The file extensions are:
 6.  `.exe` or no extension means the file is executable.
 ​
 Shared libraries are used by default when they are available. By
-specifying the '-static' command you can force the use of static
+specifying the `-static` command you can force the use of static
 libraries.  
 
 ​
@@ -90,24 +90,25 @@ STATIC LINKING:
 ```
 $ gcc -o mycode mycode.c -l1 -l2 -static
 ```
-​
-In this example '-l1' is searching for a library named 'lib1.a' and
-'-l2' is searching for a library named 'lib2.a'. The .a extension
+
+In this example `-l1` is searching for a library named `lib1.a` and
+`-l2` is searching for a library named `lib2.a`. The `.a` extension
 indicates that a file is a static library or archive and is a binary
 file that contains objective code.
 ​
+
 SHARED LINKING:
 ```
 $ gcc -o mycode mycode.c -l1 -l2
 ```
 ​
-In this example '-l1' is searching for a library named 'lib1.so' and
-'-l2' is searching for a library named 'lib2.so'. The .so extension
+In this example `-l1` is searching for a library named `lib1.so` and
+`-l2` is searching for a library named `lib2.so`. The `.so` extension
 indicates that a file is a shared library and is a binary file that
 contains objective code.
 ​
 ##**Example 1: Compiling Libraries**
-​
+
 In this example we will create a very basic library and discuss the
 different ways you can load them both dynamically and statically in your
 code. Though you will rarely have to compile the libraries themselves,
@@ -163,7 +164,7 @@ library is the `-fpic` switch. This switch generates position
 independent code which is needed for the creation of shared libraries.
 `–fpic` or `–fPIC` can be used when generating the objective file. The
 `–fPIC` choice always works, but may produce larger code than `–fpic`
-while using the “-fpic” option usually generates smaller and faster code
+while using the `-fpic` option usually generates smaller and faster code
 that will have platform-dependent limitations. Now we have the object
 file we can create a shared library with the following command:
 ```
@@ -180,6 +181,7 @@ this example we name the file `demo.c`. Our code will simply call the
 square function in our square library on the number 5 and print the
 returned value.
 ​
+
 DEMO.C:
 ```
 #include "libsquare.h"  
@@ -267,14 +269,14 @@ open shared object file: No such file or directory
 This shows that the dynamic version does not work while the static does.
 ​
 ##**Compiling Statically & Dynamically With the Intel Compiler**
-​
+
 The process is the same whichever compiler you use. If you wanted to do
 the same example with the intel compiler you would just replace `gcc`
 with `icc`. It is generally best to use the same compiler (or family of
 compilers) for programs and libraries that will be executed together.
 ​
 ##**Example 2: GSL (GNU Scientific Library) C**
-​
+
 This is a more complex example that demonstrates ***?………..?*** In this example
 you will be able to read and write vector data.
 ​
@@ -342,7 +344,7 @@ compiler with a simple command:
 ```
 $ module switch intel gnu
 ```
-This is how to compile the example codes with the gnu compiler:
+This is how to compile the example codes with the GNU compiler:
 ```
 $ gcc -o vector_read_dynamic vector_read.c -lgsl -lgslcblas  
 $ gcc -o vector_write_dynamic vector_write.c -lgsl –lgslcblas
