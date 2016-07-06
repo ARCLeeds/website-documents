@@ -98,7 +98,7 @@ Logo:![image1](https://github.com/ARCLeeds/website-documents/tree/master/images/
 
 ![image1][logo]
 
-[logo]: https://github.com/ARCLeeds/website-documents/tree/master/images/image1.jpg  "Logo Title Text 1"
+[logo]: [[https://github.com/ARCLeeds/website-documents/tree/master/images/image1.jpg|alt=octocat]]
 
 In general, high CPU times and low MPI and I/O times are good. This is
 because you want to minimize the time spent communicating and
