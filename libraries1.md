@@ -85,7 +85,7 @@ Shared libraries are used by default when they are available. By
 specifying the `-static` command you can force the use of static
 libraries.  
 
-​
+
 STATIC LINKING:
 ```
 $ gcc -o mycode mycode.c -l1 -l2 -static
@@ -282,7 +282,7 @@ you will be able to read and write vector data.
 ​
 Example C Program of **writing** a vector to a file
 
-​
+
 VECTOR\_WRITE.C:
 ```
 #include stdio.h;  
