@@ -4,7 +4,7 @@
 
 Running Performance Reports on programs is as easy as adding the command
 `perf-report` at the start of what you would normally run. This can
-also be done in the job submission script by adding `perf-report`prefix.
+also be done in the job submission script by adding the `perf-report`prefix.
 
 Allinea is installed on ARC1 and ARC2. To use it you will need to run
 the `module load allinea` command.
@@ -132,17 +132,9 @@ managed and controlled by the scheduler and the user that has requested
 the resource will have exclusive access to the resource for the duration
 of the job.
 
+**Login node**![image2](image2.png)
 
-![image2][media]
-
-[media]: https://github.com/ARCLeeds/website-documents/tree/master/images/image2.png  "Logo Title Text 2"
-
-
-![](media/image2.png){width="2.8229166666666665in"
-height="1.0520833333333333in"}**Login node**
-
-![](media/image3.png){width="3.1041666666666665in"
-height="1.0729166666666667in"}**Compute node**
+**Compute node**![image3](image3.png)
 
 ##**Number of Processes**
 
@@ -152,13 +144,13 @@ when the amount of time spent in MPI calls is low.
 
 ###**4 Processes**
 
-![](media/image4.png){width="5.40625in" height="0.34375in"}
+![image5](image5.png)
 
-![](media/image5.png){width="5.138888888888889in" height="0.325in"}**8
-Processes**
+###**8 Processes**
+![image6](image6.png)
 
-![](media/image6.png){width="5.3953488626421695in"
-height="0.3720931758530184in"}**16 processes**
+###**16 processes**
+![image6](image6.png)
 
 These examples above all use the `nodes, ppn` syntax with only 1 node used.
 As you can see the amount of time spent in MPI calls when using 4
