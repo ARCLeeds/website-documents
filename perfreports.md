@@ -92,7 +92,7 @@ the execution has completed you will then have a `.txt` file and a `.html`
 file that will both contain the output of you performance report.
 
 ##**What Reports Mean?**
-![image1](image1.jpeg)
+![image1](annotated_image1.png)
 
 In general, high CPU times and low MPI and I/O times are good. This is
 because you want to minimize the time spent communicating and
@@ -132,9 +132,11 @@ managed and controlled by the scheduler and the user that has requested
 the resource will have exclusive access to the resource for the duration
 of the job.
 
-**Login node**![image2](image2.png)
+###**Login node**
+![image2](image2.png)
 
-**Compute node**![image3](image3.png)
+###**Compute node**
+![image3](image3.png)
 
 ##**Number of Processes**
 
